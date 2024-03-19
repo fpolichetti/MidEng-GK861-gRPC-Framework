@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+service DataWarehouseService {
+  rpc warehousing(WarehouseRequest) returns (WarehouseResponse) {}
+}
+
+message WarehouseRequest {
+  int32 id = 1;
+  int32 auth = 2;
+}
+
+message ProductData {
+  int32 productID = 1;
+  string productName = 2;
+  string productCategory = 3;
+  double productPrice = 4;
+  int32 productStock = 5;
+  int32 productExpiryDate = 6;
+  bool productAvailability = 7;
+}
+
+message WarehouseResponse {
+  int32 warehouseID = 1;
+  string warehouseName = 2;
+  string warehouseLocation = 3;
+  int32 warehouseStorage = 4;
+  int32 warehouseParkingSlots = 5;
+  bool warehouseAvailability = 6;
+  repeated ProductData productData = 7;
+}
