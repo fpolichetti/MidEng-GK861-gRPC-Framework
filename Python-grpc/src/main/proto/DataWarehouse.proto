@@ -1,22 +1,15 @@
 syntax = "proto3";
 
+package datawarehouse;
+
 service DataWarehouseService {
   rpc warehousing(WarehouseRequest) returns (WarehouseResponse) {}
+  rpc ping(PingRequest) returns (PingResponse) {}
 }
 
 message WarehouseRequest {
   int32 id = 1;
   int32 auth = 2;
-}
-
-message ProductData {
-  int32 productID = 1;
-  string productName = 2;
-  string productCategory = 3;
-  double productPrice = 4;
-  int32 productStock = 5;
-  int32 productExpiryDate = 6;
-  bool productAvailability = 7;
 }
 
 message WarehouseResponse {
@@ -27,4 +20,22 @@ message WarehouseResponse {
   int32 warehouseParkingSlots = 5;
   bool warehouseAvailability = 6;
   repeated ProductData productData = 7;
+}
+
+message ProductData {
+  int32 productID = 1;
+  string productName = 2;
+  string productCategory = 3;
+  double productPrice = 4;
+  int32 productStock = 5;
+  string productExpiryDate = 6;
+  bool productAvailability = 7;
+}
+
+message PingRequest {
+  string clientID = 1;
+}
+
+message PingResponse {
+  string message = 1;
 }

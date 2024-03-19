@@ -13,20 +13,20 @@ public class DataWarehouseServer {
                 .addService(new DataWarehouseServiceImpl())
                 .build()
                 .start();
+        System.out.println("Server started, listening on " + PORT);
+
+        new HealthCheckManager().start();
     }
 
     public void blockUntilShutdown() throws InterruptedException {
-        if (server == null) {
-            return;
+        if (server != null) {
+            server.awaitTermination();
         }
-        server.awaitTermination();
     }
 
-    public static void main (String[] args) throws InterruptedException, IOException {
-        DataWarehouseServer server = new DataWarehouseServer();
-        System.out.println( "DataWarehouse is available!");
+    public static void main(String[] args) throws IOException, InterruptedException {
+        final DataWarehouseServer server = new DataWarehouseServer();
         server.start();
         server.blockUntilShutdown();
     }
-
 }

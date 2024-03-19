@@ -1993,10 +1993,16 @@ public final class DataWarehouse {
     int getProductStock();
 
     /**
-     * <code>int32 productExpiryDate = 6;</code>
+     * <code>string productExpiryDate = 6;</code>
      * @return The productExpiryDate.
      */
-    int getProductExpiryDate();
+    java.lang.String getProductExpiryDate();
+    /**
+     * <code>string productExpiryDate = 6;</code>
+     * @return The bytes for productExpiryDate.
+     */
+    com.google.protobuf.ByteString
+        getProductExpiryDateBytes();
 
     /**
      * <code>bool productAvailability = 7;</code>
@@ -2019,6 +2025,7 @@ public final class DataWarehouse {
     private ProductData() {
       productName_ = "";
       productCategory_ = "";
+      productExpiryDate_ = "";
     }
 
     @java.lang.Override
@@ -2078,9 +2085,10 @@ public final class DataWarehouse {
               productStock_ = input.readInt32();
               break;
             }
-            case 48: {
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              productExpiryDate_ = input.readInt32();
+              productExpiryDate_ = s;
               break;
             }
             case 56: {
@@ -2230,14 +2238,41 @@ public final class DataWarehouse {
     }
 
     public static final int PRODUCTEXPIRYDATE_FIELD_NUMBER = 6;
-    private int productExpiryDate_;
+    private volatile java.lang.Object productExpiryDate_;
     /**
-     * <code>int32 productExpiryDate = 6;</code>
+     * <code>string productExpiryDate = 6;</code>
      * @return The productExpiryDate.
      */
     @java.lang.Override
-    public int getProductExpiryDate() {
-      return productExpiryDate_;
+    public java.lang.String getProductExpiryDate() {
+      java.lang.Object ref = productExpiryDate_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        productExpiryDate_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string productExpiryDate = 6;</code>
+     * @return The bytes for productExpiryDate.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getProductExpiryDateBytes() {
+      java.lang.Object ref = productExpiryDate_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        productExpiryDate_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     public static final int PRODUCTAVAILABILITY_FIELD_NUMBER = 7;
@@ -2280,8 +2315,8 @@ public final class DataWarehouse {
       if (productStock_ != 0) {
         output.writeInt32(5, productStock_);
       }
-      if (productExpiryDate_ != 0) {
-        output.writeInt32(6, productExpiryDate_);
+      if (!getProductExpiryDateBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, productExpiryDate_);
       }
       if (productAvailability_ != false) {
         output.writeBool(7, productAvailability_);
@@ -2313,9 +2348,8 @@ public final class DataWarehouse {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(5, productStock_);
       }
-      if (productExpiryDate_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(6, productExpiryDate_);
+      if (!getProductExpiryDateBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, productExpiryDate_);
       }
       if (productAvailability_ != false) {
         size += com.google.protobuf.CodedOutputStream
@@ -2347,8 +2381,8 @@ public final class DataWarehouse {
               other.getProductPrice())) return false;
       if (getProductStock()
           != other.getProductStock()) return false;
-      if (getProductExpiryDate()
-          != other.getProductExpiryDate()) return false;
+      if (!getProductExpiryDate()
+          .equals(other.getProductExpiryDate())) return false;
       if (getProductAvailability()
           != other.getProductAvailability()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -2374,7 +2408,7 @@ public final class DataWarehouse {
       hash = (37 * hash) + PRODUCTSTOCK_FIELD_NUMBER;
       hash = (53 * hash) + getProductStock();
       hash = (37 * hash) + PRODUCTEXPIRYDATE_FIELD_NUMBER;
-      hash = (53 * hash) + getProductExpiryDate();
+      hash = (53 * hash) + getProductExpiryDate().hashCode();
       hash = (37 * hash) + PRODUCTAVAILABILITY_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getProductAvailability());
@@ -2521,7 +2555,7 @@ public final class DataWarehouse {
 
         productStock_ = 0;
 
-        productExpiryDate_ = 0;
+        productExpiryDate_ = "";
 
         productAvailability_ = false;
 
@@ -2623,8 +2657,9 @@ public final class DataWarehouse {
         if (other.getProductStock() != 0) {
           setProductStock(other.getProductStock());
         }
-        if (other.getProductExpiryDate() != 0) {
-          setProductExpiryDate(other.getProductExpiryDate());
+        if (!other.getProductExpiryDate().isEmpty()) {
+          productExpiryDate_ = other.productExpiryDate_;
+          onChanged();
         }
         if (other.getProductAvailability() != false) {
           setProductAvailability(other.getProductAvailability());
@@ -2903,33 +2938,78 @@ public final class DataWarehouse {
         return this;
       }
 
-      private int productExpiryDate_ ;
+      private java.lang.Object productExpiryDate_ = "";
       /**
-       * <code>int32 productExpiryDate = 6;</code>
+       * <code>string productExpiryDate = 6;</code>
        * @return The productExpiryDate.
        */
-      @java.lang.Override
-      public int getProductExpiryDate() {
-        return productExpiryDate_;
+      public java.lang.String getProductExpiryDate() {
+        java.lang.Object ref = productExpiryDate_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          productExpiryDate_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>int32 productExpiryDate = 6;</code>
+       * <code>string productExpiryDate = 6;</code>
+       * @return The bytes for productExpiryDate.
+       */
+      public com.google.protobuf.ByteString
+          getProductExpiryDateBytes() {
+        java.lang.Object ref = productExpiryDate_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          productExpiryDate_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string productExpiryDate = 6;</code>
        * @param value The productExpiryDate to set.
        * @return This builder for chaining.
        */
-      public Builder setProductExpiryDate(int value) {
-        
+      public Builder setProductExpiryDate(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         productExpiryDate_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 productExpiryDate = 6;</code>
+       * <code>string productExpiryDate = 6;</code>
        * @return This builder for chaining.
        */
       public Builder clearProductExpiryDate() {
         
-        productExpiryDate_ = 0;
+        productExpiryDate_ = getDefaultInstance().getProductExpiryDate();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string productExpiryDate = 6;</code>
+       * @param value The bytes for productExpiryDate to set.
+       * @return This builder for chaining.
+       */
+      public Builder setProductExpiryDateBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        productExpiryDate_ = value;
         onChanged();
         return this;
       }
@@ -3017,8 +3097,8 @@ public final class DataWarehouse {
 
   }
 
-  public interface PingOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:datawarehouse.Ping)
+  public interface PingRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datawarehouse.PingRequest)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -3034,18 +3114,18 @@ public final class DataWarehouse {
         getClientIDBytes();
   }
   /**
-   * Protobuf type {@code datawarehouse.Ping}
+   * Protobuf type {@code datawarehouse.PingRequest}
    */
-  public static final class Ping extends
+  public static final class PingRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:datawarehouse.Ping)
-      PingOrBuilder {
+      // @@protoc_insertion_point(message_implements:datawarehouse.PingRequest)
+      PingRequestOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use Ping.newBuilder() to construct.
-    private Ping(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use PingRequest.newBuilder() to construct.
+    private PingRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private Ping() {
+    private PingRequest() {
       clientID_ = "";
     }
 
@@ -3053,7 +3133,7 @@ public final class DataWarehouse {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new Ping();
+      return new PingRequest();
     }
 
     @java.lang.Override
@@ -3061,7 +3141,7 @@ public final class DataWarehouse {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private Ping(
+    private PingRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3106,15 +3186,15 @@ public final class DataWarehouse {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return datawarehouse.DataWarehouse.internal_static_datawarehouse_Ping_descriptor;
+      return datawarehouse.DataWarehouse.internal_static_datawarehouse_PingRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return datawarehouse.DataWarehouse.internal_static_datawarehouse_Ping_fieldAccessorTable
+      return datawarehouse.DataWarehouse.internal_static_datawarehouse_PingRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              datawarehouse.DataWarehouse.Ping.class, datawarehouse.DataWarehouse.Ping.Builder.class);
+              datawarehouse.DataWarehouse.PingRequest.class, datawarehouse.DataWarehouse.PingRequest.Builder.class);
     }
 
     public static final int CLIENTID_FIELD_NUMBER = 1;
@@ -3194,10 +3274,10 @@ public final class DataWarehouse {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof datawarehouse.DataWarehouse.Ping)) {
+      if (!(obj instanceof datawarehouse.DataWarehouse.PingRequest)) {
         return super.equals(obj);
       }
-      datawarehouse.DataWarehouse.Ping other = (datawarehouse.DataWarehouse.Ping) obj;
+      datawarehouse.DataWarehouse.PingRequest other = (datawarehouse.DataWarehouse.PingRequest) obj;
 
       if (!getClientID()
           .equals(other.getClientID())) return false;
@@ -3219,69 +3299,69 @@ public final class DataWarehouse {
       return hash;
     }
 
-    public static datawarehouse.DataWarehouse.Ping parseFrom(
+    public static datawarehouse.DataWarehouse.PingRequest parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static datawarehouse.DataWarehouse.Ping parseFrom(
+    public static datawarehouse.DataWarehouse.PingRequest parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static datawarehouse.DataWarehouse.Ping parseFrom(
+    public static datawarehouse.DataWarehouse.PingRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static datawarehouse.DataWarehouse.Ping parseFrom(
+    public static datawarehouse.DataWarehouse.PingRequest parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static datawarehouse.DataWarehouse.Ping parseFrom(byte[] data)
+    public static datawarehouse.DataWarehouse.PingRequest parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static datawarehouse.DataWarehouse.Ping parseFrom(
+    public static datawarehouse.DataWarehouse.PingRequest parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static datawarehouse.DataWarehouse.Ping parseFrom(java.io.InputStream input)
+    public static datawarehouse.DataWarehouse.PingRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static datawarehouse.DataWarehouse.Ping parseFrom(
+    public static datawarehouse.DataWarehouse.PingRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static datawarehouse.DataWarehouse.Ping parseDelimitedFrom(java.io.InputStream input)
+    public static datawarehouse.DataWarehouse.PingRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static datawarehouse.DataWarehouse.Ping parseDelimitedFrom(
+    public static datawarehouse.DataWarehouse.PingRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static datawarehouse.DataWarehouse.Ping parseFrom(
+    public static datawarehouse.DataWarehouse.PingRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static datawarehouse.DataWarehouse.Ping parseFrom(
+    public static datawarehouse.DataWarehouse.PingRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3294,7 +3374,7 @@ public final class DataWarehouse {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(datawarehouse.DataWarehouse.Ping prototype) {
+    public static Builder newBuilder(datawarehouse.DataWarehouse.PingRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -3310,26 +3390,26 @@ public final class DataWarehouse {
       return builder;
     }
     /**
-     * Protobuf type {@code datawarehouse.Ping}
+     * Protobuf type {@code datawarehouse.PingRequest}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:datawarehouse.Ping)
-        datawarehouse.DataWarehouse.PingOrBuilder {
+        // @@protoc_insertion_point(builder_implements:datawarehouse.PingRequest)
+        datawarehouse.DataWarehouse.PingRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return datawarehouse.DataWarehouse.internal_static_datawarehouse_Ping_descriptor;
+        return datawarehouse.DataWarehouse.internal_static_datawarehouse_PingRequest_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return datawarehouse.DataWarehouse.internal_static_datawarehouse_Ping_fieldAccessorTable
+        return datawarehouse.DataWarehouse.internal_static_datawarehouse_PingRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                datawarehouse.DataWarehouse.Ping.class, datawarehouse.DataWarehouse.Ping.Builder.class);
+                datawarehouse.DataWarehouse.PingRequest.class, datawarehouse.DataWarehouse.PingRequest.Builder.class);
       }
 
-      // Construct using datawarehouse.DataWarehouse.Ping.newBuilder()
+      // Construct using datawarehouse.DataWarehouse.PingRequest.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -3355,17 +3435,17 @@ public final class DataWarehouse {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return datawarehouse.DataWarehouse.internal_static_datawarehouse_Ping_descriptor;
+        return datawarehouse.DataWarehouse.internal_static_datawarehouse_PingRequest_descriptor;
       }
 
       @java.lang.Override
-      public datawarehouse.DataWarehouse.Ping getDefaultInstanceForType() {
-        return datawarehouse.DataWarehouse.Ping.getDefaultInstance();
+      public datawarehouse.DataWarehouse.PingRequest getDefaultInstanceForType() {
+        return datawarehouse.DataWarehouse.PingRequest.getDefaultInstance();
       }
 
       @java.lang.Override
-      public datawarehouse.DataWarehouse.Ping build() {
-        datawarehouse.DataWarehouse.Ping result = buildPartial();
+      public datawarehouse.DataWarehouse.PingRequest build() {
+        datawarehouse.DataWarehouse.PingRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -3373,8 +3453,8 @@ public final class DataWarehouse {
       }
 
       @java.lang.Override
-      public datawarehouse.DataWarehouse.Ping buildPartial() {
-        datawarehouse.DataWarehouse.Ping result = new datawarehouse.DataWarehouse.Ping(this);
+      public datawarehouse.DataWarehouse.PingRequest buildPartial() {
+        datawarehouse.DataWarehouse.PingRequest result = new datawarehouse.DataWarehouse.PingRequest(this);
         result.clientID_ = clientID_;
         onBuilt();
         return result;
@@ -3414,16 +3494,16 @@ public final class DataWarehouse {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof datawarehouse.DataWarehouse.Ping) {
-          return mergeFrom((datawarehouse.DataWarehouse.Ping)other);
+        if (other instanceof datawarehouse.DataWarehouse.PingRequest) {
+          return mergeFrom((datawarehouse.DataWarehouse.PingRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(datawarehouse.DataWarehouse.Ping other) {
-        if (other == datawarehouse.DataWarehouse.Ping.getDefaultInstance()) return this;
+      public Builder mergeFrom(datawarehouse.DataWarehouse.PingRequest other) {
+        if (other == datawarehouse.DataWarehouse.PingRequest.getDefaultInstance()) return this;
         if (!other.getClientID().isEmpty()) {
           clientID_ = other.clientID_;
           onChanged();
@@ -3443,11 +3523,11 @@ public final class DataWarehouse {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        datawarehouse.DataWarehouse.Ping parsedMessage = null;
+        datawarehouse.DataWarehouse.PingRequest parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (datawarehouse.DataWarehouse.Ping) e.getUnfinishedMessage();
+          parsedMessage = (datawarehouse.DataWarehouse.PingRequest) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3545,117 +3625,91 @@ public final class DataWarehouse {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:datawarehouse.Ping)
+      // @@protoc_insertion_point(builder_scope:datawarehouse.PingRequest)
     }
 
-    // @@protoc_insertion_point(class_scope:datawarehouse.Ping)
-    private static final datawarehouse.DataWarehouse.Ping DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:datawarehouse.PingRequest)
+    private static final datawarehouse.DataWarehouse.PingRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new datawarehouse.DataWarehouse.Ping();
+      DEFAULT_INSTANCE = new datawarehouse.DataWarehouse.PingRequest();
     }
 
-    public static datawarehouse.DataWarehouse.Ping getDefaultInstance() {
+    public static datawarehouse.DataWarehouse.PingRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<Ping>
-        PARSER = new com.google.protobuf.AbstractParser<Ping>() {
+    private static final com.google.protobuf.Parser<PingRequest>
+        PARSER = new com.google.protobuf.AbstractParser<PingRequest>() {
       @java.lang.Override
-      public Ping parsePartialFrom(
+      public PingRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Ping(input, extensionRegistry);
+        return new PingRequest(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<Ping> parser() {
+    public static com.google.protobuf.Parser<PingRequest> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<Ping> getParserForType() {
+    public com.google.protobuf.Parser<PingRequest> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public datawarehouse.DataWarehouse.Ping getDefaultInstanceForType() {
+    public datawarehouse.DataWarehouse.PingRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface PongOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:datawarehouse.Pong)
+  public interface PingResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:datawarehouse.PingResponse)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string clientID = 1;</code>
-     * @return The clientID.
-     */
-    java.lang.String getClientID();
-    /**
-     * <code>string clientID = 1;</code>
-     * @return The bytes for clientID.
-     */
-    com.google.protobuf.ByteString
-        getClientIDBytes();
-
-    /**
-     * <code>string timestamp = 2;</code>
-     * @return The timestamp.
-     */
-    java.lang.String getTimestamp();
-    /**
-     * <code>string timestamp = 2;</code>
-     * @return The bytes for timestamp.
-     */
-    com.google.protobuf.ByteString
-        getTimestampBytes();
-
-    /**
      * <pre>
-     * "healthy" or "no response"
+     * Einfaches Echo der Nachricht.
      * </pre>
      *
-     * <code>string status = 3;</code>
-     * @return The status.
+     * <code>string message = 1;</code>
+     * @return The message.
      */
-    java.lang.String getStatus();
+    java.lang.String getMessage();
     /**
      * <pre>
-     * "healthy" or "no response"
+     * Einfaches Echo der Nachricht.
      * </pre>
      *
-     * <code>string status = 3;</code>
-     * @return The bytes for status.
+     * <code>string message = 1;</code>
+     * @return The bytes for message.
      */
     com.google.protobuf.ByteString
-        getStatusBytes();
+        getMessageBytes();
   }
   /**
-   * Protobuf type {@code datawarehouse.Pong}
+   * Protobuf type {@code datawarehouse.PingResponse}
    */
-  public static final class Pong extends
+  public static final class PingResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:datawarehouse.Pong)
-      PongOrBuilder {
+      // @@protoc_insertion_point(message_implements:datawarehouse.PingResponse)
+      PingResponseOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use Pong.newBuilder() to construct.
-    private Pong(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use PingResponse.newBuilder() to construct.
+    private PingResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private Pong() {
-      clientID_ = "";
-      timestamp_ = "";
-      status_ = "";
+    private PingResponse() {
+      message_ = "";
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new Pong();
+      return new PingResponse();
     }
 
     @java.lang.Override
@@ -3663,7 +3717,7 @@ public final class DataWarehouse {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private Pong(
+    private PingResponse(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3684,19 +3738,7 @@ public final class DataWarehouse {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              clientID_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              timestamp_ = s;
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              status_ = s;
+              message_ = s;
               break;
             }
             default: {
@@ -3720,133 +3762,57 @@ public final class DataWarehouse {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return datawarehouse.DataWarehouse.internal_static_datawarehouse_Pong_descriptor;
+      return datawarehouse.DataWarehouse.internal_static_datawarehouse_PingResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return datawarehouse.DataWarehouse.internal_static_datawarehouse_Pong_fieldAccessorTable
+      return datawarehouse.DataWarehouse.internal_static_datawarehouse_PingResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              datawarehouse.DataWarehouse.Pong.class, datawarehouse.DataWarehouse.Pong.Builder.class);
+              datawarehouse.DataWarehouse.PingResponse.class, datawarehouse.DataWarehouse.PingResponse.Builder.class);
     }
 
-    public static final int CLIENTID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object clientID_;
-    /**
-     * <code>string clientID = 1;</code>
-     * @return The clientID.
-     */
-    @java.lang.Override
-    public java.lang.String getClientID() {
-      java.lang.Object ref = clientID_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        clientID_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string clientID = 1;</code>
-     * @return The bytes for clientID.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getClientIDBytes() {
-      java.lang.Object ref = clientID_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        clientID_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int TIMESTAMP_FIELD_NUMBER = 2;
-    private volatile java.lang.Object timestamp_;
-    /**
-     * <code>string timestamp = 2;</code>
-     * @return The timestamp.
-     */
-    @java.lang.Override
-    public java.lang.String getTimestamp() {
-      java.lang.Object ref = timestamp_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        timestamp_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string timestamp = 2;</code>
-     * @return The bytes for timestamp.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getTimestampBytes() {
-      java.lang.Object ref = timestamp_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        timestamp_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int STATUS_FIELD_NUMBER = 3;
-    private volatile java.lang.Object status_;
+    public static final int MESSAGE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object message_;
     /**
      * <pre>
-     * "healthy" or "no response"
+     * Einfaches Echo der Nachricht.
      * </pre>
      *
-     * <code>string status = 3;</code>
-     * @return The status.
+     * <code>string message = 1;</code>
+     * @return The message.
      */
     @java.lang.Override
-    public java.lang.String getStatus() {
-      java.lang.Object ref = status_;
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        status_ = s;
+        message_ = s;
         return s;
       }
     }
     /**
      * <pre>
-     * "healthy" or "no response"
+     * Einfaches Echo der Nachricht.
      * </pre>
      *
-     * <code>string status = 3;</code>
-     * @return The bytes for status.
+     * <code>string message = 1;</code>
+     * @return The bytes for message.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getStatusBytes() {
-      java.lang.Object ref = status_;
+        getMessageBytes() {
+      java.lang.Object ref = message_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        status_ = b;
+        message_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -3867,14 +3833,8 @@ public final class DataWarehouse {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getClientIDBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, clientID_);
-      }
-      if (!getTimestampBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, timestamp_);
-      }
-      if (!getStatusBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, status_);
+      if (!getMessageBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, message_);
       }
       unknownFields.writeTo(output);
     }
@@ -3885,14 +3845,8 @@ public final class DataWarehouse {
       if (size != -1) return size;
 
       size = 0;
-      if (!getClientIDBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, clientID_);
-      }
-      if (!getTimestampBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, timestamp_);
-      }
-      if (!getStatusBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, status_);
+      if (!getMessageBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, message_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3904,17 +3858,13 @@ public final class DataWarehouse {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof datawarehouse.DataWarehouse.Pong)) {
+      if (!(obj instanceof datawarehouse.DataWarehouse.PingResponse)) {
         return super.equals(obj);
       }
-      datawarehouse.DataWarehouse.Pong other = (datawarehouse.DataWarehouse.Pong) obj;
+      datawarehouse.DataWarehouse.PingResponse other = (datawarehouse.DataWarehouse.PingResponse) obj;
 
-      if (!getClientID()
-          .equals(other.getClientID())) return false;
-      if (!getTimestamp()
-          .equals(other.getTimestamp())) return false;
-      if (!getStatus()
-          .equals(other.getStatus())) return false;
+      if (!getMessage()
+          .equals(other.getMessage())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -3926,80 +3876,76 @@ public final class DataWarehouse {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + CLIENTID_FIELD_NUMBER;
-      hash = (53 * hash) + getClientID().hashCode();
-      hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
-      hash = (53 * hash) + getTimestamp().hashCode();
-      hash = (37 * hash) + STATUS_FIELD_NUMBER;
-      hash = (53 * hash) + getStatus().hashCode();
+      hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+      hash = (53 * hash) + getMessage().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static datawarehouse.DataWarehouse.Pong parseFrom(
+    public static datawarehouse.DataWarehouse.PingResponse parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static datawarehouse.DataWarehouse.Pong parseFrom(
+    public static datawarehouse.DataWarehouse.PingResponse parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static datawarehouse.DataWarehouse.Pong parseFrom(
+    public static datawarehouse.DataWarehouse.PingResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static datawarehouse.DataWarehouse.Pong parseFrom(
+    public static datawarehouse.DataWarehouse.PingResponse parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static datawarehouse.DataWarehouse.Pong parseFrom(byte[] data)
+    public static datawarehouse.DataWarehouse.PingResponse parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static datawarehouse.DataWarehouse.Pong parseFrom(
+    public static datawarehouse.DataWarehouse.PingResponse parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static datawarehouse.DataWarehouse.Pong parseFrom(java.io.InputStream input)
+    public static datawarehouse.DataWarehouse.PingResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static datawarehouse.DataWarehouse.Pong parseFrom(
+    public static datawarehouse.DataWarehouse.PingResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static datawarehouse.DataWarehouse.Pong parseDelimitedFrom(java.io.InputStream input)
+    public static datawarehouse.DataWarehouse.PingResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static datawarehouse.DataWarehouse.Pong parseDelimitedFrom(
+    public static datawarehouse.DataWarehouse.PingResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static datawarehouse.DataWarehouse.Pong parseFrom(
+    public static datawarehouse.DataWarehouse.PingResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static datawarehouse.DataWarehouse.Pong parseFrom(
+    public static datawarehouse.DataWarehouse.PingResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -4012,7 +3958,7 @@ public final class DataWarehouse {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(datawarehouse.DataWarehouse.Pong prototype) {
+    public static Builder newBuilder(datawarehouse.DataWarehouse.PingResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -4028,26 +3974,26 @@ public final class DataWarehouse {
       return builder;
     }
     /**
-     * Protobuf type {@code datawarehouse.Pong}
+     * Protobuf type {@code datawarehouse.PingResponse}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:datawarehouse.Pong)
-        datawarehouse.DataWarehouse.PongOrBuilder {
+        // @@protoc_insertion_point(builder_implements:datawarehouse.PingResponse)
+        datawarehouse.DataWarehouse.PingResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return datawarehouse.DataWarehouse.internal_static_datawarehouse_Pong_descriptor;
+        return datawarehouse.DataWarehouse.internal_static_datawarehouse_PingResponse_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return datawarehouse.DataWarehouse.internal_static_datawarehouse_Pong_fieldAccessorTable
+        return datawarehouse.DataWarehouse.internal_static_datawarehouse_PingResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                datawarehouse.DataWarehouse.Pong.class, datawarehouse.DataWarehouse.Pong.Builder.class);
+                datawarehouse.DataWarehouse.PingResponse.class, datawarehouse.DataWarehouse.PingResponse.Builder.class);
       }
 
-      // Construct using datawarehouse.DataWarehouse.Pong.newBuilder()
+      // Construct using datawarehouse.DataWarehouse.PingResponse.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -4065,11 +4011,7 @@ public final class DataWarehouse {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        clientID_ = "";
-
-        timestamp_ = "";
-
-        status_ = "";
+        message_ = "";
 
         return this;
       }
@@ -4077,17 +4019,17 @@ public final class DataWarehouse {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return datawarehouse.DataWarehouse.internal_static_datawarehouse_Pong_descriptor;
+        return datawarehouse.DataWarehouse.internal_static_datawarehouse_PingResponse_descriptor;
       }
 
       @java.lang.Override
-      public datawarehouse.DataWarehouse.Pong getDefaultInstanceForType() {
-        return datawarehouse.DataWarehouse.Pong.getDefaultInstance();
+      public datawarehouse.DataWarehouse.PingResponse getDefaultInstanceForType() {
+        return datawarehouse.DataWarehouse.PingResponse.getDefaultInstance();
       }
 
       @java.lang.Override
-      public datawarehouse.DataWarehouse.Pong build() {
-        datawarehouse.DataWarehouse.Pong result = buildPartial();
+      public datawarehouse.DataWarehouse.PingResponse build() {
+        datawarehouse.DataWarehouse.PingResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -4095,11 +4037,9 @@ public final class DataWarehouse {
       }
 
       @java.lang.Override
-      public datawarehouse.DataWarehouse.Pong buildPartial() {
-        datawarehouse.DataWarehouse.Pong result = new datawarehouse.DataWarehouse.Pong(this);
-        result.clientID_ = clientID_;
-        result.timestamp_ = timestamp_;
-        result.status_ = status_;
+      public datawarehouse.DataWarehouse.PingResponse buildPartial() {
+        datawarehouse.DataWarehouse.PingResponse result = new datawarehouse.DataWarehouse.PingResponse(this);
+        result.message_ = message_;
         onBuilt();
         return result;
       }
@@ -4138,26 +4078,18 @@ public final class DataWarehouse {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof datawarehouse.DataWarehouse.Pong) {
-          return mergeFrom((datawarehouse.DataWarehouse.Pong)other);
+        if (other instanceof datawarehouse.DataWarehouse.PingResponse) {
+          return mergeFrom((datawarehouse.DataWarehouse.PingResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(datawarehouse.DataWarehouse.Pong other) {
-        if (other == datawarehouse.DataWarehouse.Pong.getDefaultInstance()) return this;
-        if (!other.getClientID().isEmpty()) {
-          clientID_ = other.clientID_;
-          onChanged();
-        }
-        if (!other.getTimestamp().isEmpty()) {
-          timestamp_ = other.timestamp_;
-          onChanged();
-        }
-        if (!other.getStatus().isEmpty()) {
-          status_ = other.status_;
+      public Builder mergeFrom(datawarehouse.DataWarehouse.PingResponse other) {
+        if (other == datawarehouse.DataWarehouse.PingResponse.getDefaultInstance()) return this;
+        if (!other.getMessage().isEmpty()) {
+          message_ = other.message_;
           onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
@@ -4175,11 +4107,11 @@ public final class DataWarehouse {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        datawarehouse.DataWarehouse.Pong parsedMessage = null;
+        datawarehouse.DataWarehouse.PingResponse parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (datawarehouse.DataWarehouse.Pong) e.getUnfinishedMessage();
+          parsedMessage = (datawarehouse.DataWarehouse.PingResponse) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -4189,174 +4121,22 @@ public final class DataWarehouse {
         return this;
       }
 
-      private java.lang.Object clientID_ = "";
-      /**
-       * <code>string clientID = 1;</code>
-       * @return The clientID.
-       */
-      public java.lang.String getClientID() {
-        java.lang.Object ref = clientID_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          clientID_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string clientID = 1;</code>
-       * @return The bytes for clientID.
-       */
-      public com.google.protobuf.ByteString
-          getClientIDBytes() {
-        java.lang.Object ref = clientID_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          clientID_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string clientID = 1;</code>
-       * @param value The clientID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setClientID(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        clientID_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string clientID = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearClientID() {
-        
-        clientID_ = getDefaultInstance().getClientID();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string clientID = 1;</code>
-       * @param value The bytes for clientID to set.
-       * @return This builder for chaining.
-       */
-      public Builder setClientIDBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        clientID_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object timestamp_ = "";
-      /**
-       * <code>string timestamp = 2;</code>
-       * @return The timestamp.
-       */
-      public java.lang.String getTimestamp() {
-        java.lang.Object ref = timestamp_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          timestamp_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string timestamp = 2;</code>
-       * @return The bytes for timestamp.
-       */
-      public com.google.protobuf.ByteString
-          getTimestampBytes() {
-        java.lang.Object ref = timestamp_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          timestamp_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string timestamp = 2;</code>
-       * @param value The timestamp to set.
-       * @return This builder for chaining.
-       */
-      public Builder setTimestamp(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        timestamp_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string timestamp = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearTimestamp() {
-        
-        timestamp_ = getDefaultInstance().getTimestamp();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string timestamp = 2;</code>
-       * @param value The bytes for timestamp to set.
-       * @return This builder for chaining.
-       */
-      public Builder setTimestampBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        timestamp_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object status_ = "";
+      private java.lang.Object message_ = "";
       /**
        * <pre>
-       * "healthy" or "no response"
+       * Einfaches Echo der Nachricht.
        * </pre>
        *
-       * <code>string status = 3;</code>
-       * @return The status.
+       * <code>string message = 1;</code>
+       * @return The message.
        */
-      public java.lang.String getStatus() {
-        java.lang.Object ref = status_;
+      public java.lang.String getMessage() {
+        java.lang.Object ref = message_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          status_ = s;
+          message_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -4364,20 +4144,20 @@ public final class DataWarehouse {
       }
       /**
        * <pre>
-       * "healthy" or "no response"
+       * Einfaches Echo der Nachricht.
        * </pre>
        *
-       * <code>string status = 3;</code>
-       * @return The bytes for status.
+       * <code>string message = 1;</code>
+       * @return The bytes for message.
        */
       public com.google.protobuf.ByteString
-          getStatusBytes() {
-        java.lang.Object ref = status_;
+          getMessageBytes() {
+        java.lang.Object ref = message_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          status_ = b;
+          message_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
@@ -4385,54 +4165,54 @@ public final class DataWarehouse {
       }
       /**
        * <pre>
-       * "healthy" or "no response"
+       * Einfaches Echo der Nachricht.
        * </pre>
        *
-       * <code>string status = 3;</code>
-       * @param value The status to set.
+       * <code>string message = 1;</code>
+       * @param value The message to set.
        * @return This builder for chaining.
        */
-      public Builder setStatus(
+      public Builder setMessage(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        status_ = value;
+        message_ = value;
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * "healthy" or "no response"
+       * Einfaches Echo der Nachricht.
        * </pre>
        *
-       * <code>string status = 3;</code>
+       * <code>string message = 1;</code>
        * @return This builder for chaining.
        */
-      public Builder clearStatus() {
+      public Builder clearMessage() {
         
-        status_ = getDefaultInstance().getStatus();
+        message_ = getDefaultInstance().getMessage();
         onChanged();
         return this;
       }
       /**
        * <pre>
-       * "healthy" or "no response"
+       * Einfaches Echo der Nachricht.
        * </pre>
        *
-       * <code>string status = 3;</code>
-       * @param value The bytes for status to set.
+       * <code>string message = 1;</code>
+       * @param value The bytes for message to set.
        * @return This builder for chaining.
        */
-      public Builder setStatusBytes(
+      public Builder setMessageBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        status_ = value;
+        message_ = value;
         onChanged();
         return this;
       }
@@ -4449,41 +4229,41 @@ public final class DataWarehouse {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:datawarehouse.Pong)
+      // @@protoc_insertion_point(builder_scope:datawarehouse.PingResponse)
     }
 
-    // @@protoc_insertion_point(class_scope:datawarehouse.Pong)
-    private static final datawarehouse.DataWarehouse.Pong DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:datawarehouse.PingResponse)
+    private static final datawarehouse.DataWarehouse.PingResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new datawarehouse.DataWarehouse.Pong();
+      DEFAULT_INSTANCE = new datawarehouse.DataWarehouse.PingResponse();
     }
 
-    public static datawarehouse.DataWarehouse.Pong getDefaultInstance() {
+    public static datawarehouse.DataWarehouse.PingResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<Pong>
-        PARSER = new com.google.protobuf.AbstractParser<Pong>() {
+    private static final com.google.protobuf.Parser<PingResponse>
+        PARSER = new com.google.protobuf.AbstractParser<PingResponse>() {
       @java.lang.Override
-      public Pong parsePartialFrom(
+      public PingResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Pong(input, extensionRegistry);
+        return new PingResponse(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<Pong> parser() {
+    public static com.google.protobuf.Parser<PingResponse> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<Pong> getParserForType() {
+    public com.google.protobuf.Parser<PingResponse> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public datawarehouse.DataWarehouse.Pong getDefaultInstanceForType() {
+    public datawarehouse.DataWarehouse.PingResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4505,15 +4285,15 @@ public final class DataWarehouse {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_datawarehouse_ProductData_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_datawarehouse_Ping_descriptor;
+    internal_static_datawarehouse_PingRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_datawarehouse_Ping_fieldAccessorTable;
+      internal_static_datawarehouse_PingRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_datawarehouse_Pong_descriptor;
+    internal_static_datawarehouse_PingResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_datawarehouse_Pong_fieldAccessorTable;
+      internal_static_datawarehouse_PingResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4534,14 +4314,14 @@ public final class DataWarehouse {
       "ductData\022\021\n\tproductID\030\001 \001(\005\022\023\n\013productNa" +
       "me\030\002 \001(\t\022\027\n\017productCategory\030\003 \001(\t\022\024\n\014pro" +
       "ductPrice\030\004 \001(\001\022\024\n\014productStock\030\005 \001(\005\022\031\n" +
-      "\021productExpiryDate\030\006 \001(\005\022\033\n\023productAvail" +
-      "ability\030\007 \001(\010\"\030\n\004Ping\022\020\n\010clientID\030\001 \001(\t\"" +
-      ";\n\004Pong\022\020\n\010clientID\030\001 \001(\t\022\021\n\ttimestamp\030\002" +
-      " \001(\t\022\016\n\006status\030\003 \001(\t2\251\001\n\024DataWarehouseSe" +
-      "rvice\022R\n\013warehousing\022\037.datawarehouse.War" +
-      "ehouseRequest\032 .datawarehouse.WarehouseR" +
-      "esponse\"\000\022=\n\013HealthCheck\022\023.datawarehouse" +
-      ".Ping\032\023.datawarehouse.Pong\"\000(\0010\001b\006proto3"
+      "\021productExpiryDate\030\006 \001(\t\022\033\n\023productAvail" +
+      "ability\030\007 \001(\010\"\037\n\013PingRequest\022\020\n\010clientID" +
+      "\030\001 \001(\t\"\037\n\014PingResponse\022\017\n\007message\030\001 \001(\t2" +
+      "\255\001\n\024DataWarehouseService\022R\n\013warehousing\022" +
+      "\037.datawarehouse.WarehouseRequest\032 .dataw" +
+      "arehouse.WarehouseResponse\"\000\022A\n\004Ping\022\032.d" +
+      "atawarehouse.PingRequest\032\033.datawarehouse" +
+      ".PingResponse\"\000b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -4565,18 +4345,18 @@ public final class DataWarehouse {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_datawarehouse_ProductData_descriptor,
         new java.lang.String[] { "ProductID", "ProductName", "ProductCategory", "ProductPrice", "ProductStock", "ProductExpiryDate", "ProductAvailability", });
-    internal_static_datawarehouse_Ping_descriptor =
+    internal_static_datawarehouse_PingRequest_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_datawarehouse_Ping_fieldAccessorTable = new
+    internal_static_datawarehouse_PingRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_datawarehouse_Ping_descriptor,
+        internal_static_datawarehouse_PingRequest_descriptor,
         new java.lang.String[] { "ClientID", });
-    internal_static_datawarehouse_Pong_descriptor =
+    internal_static_datawarehouse_PingResponse_descriptor =
       getDescriptor().getMessageTypes().get(4);
-    internal_static_datawarehouse_Pong_fieldAccessorTable = new
+    internal_static_datawarehouse_PingResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_datawarehouse_Pong_descriptor,
-        new java.lang.String[] { "ClientID", "Timestamp", "Status", });
+        internal_static_datawarehouse_PingResponse_descriptor,
+        new java.lang.String[] { "Message", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -1,16 +1,26 @@
+
+import datawarehouse.*;
 import io.grpc.stub.StreamObserver;
 import model.ProductData;
 import model.WarehouseData;
 import product.ProductSimulation;
 import warehouse.WarehouseSimulation;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 public class DataWarehouseServiceImpl extends DataWarehouseServiceGrpc.DataWarehouseServiceImplBase {
+
+    static ConcurrentMap<String, Long> activeClients = new ConcurrentHashMap<>();
+
     @Override
     public void warehousing(DataWarehouse.WarehouseRequest request, StreamObserver<DataWarehouse.WarehouseResponse> responseObserver) {
         int id = request.getId();
         int auth = request.getAuth();
-
-        if(auth == "IloveSYT".hashCode()) {
+        String clientId = String.valueOf(request.getId());
+        activeClients.put(clientId, System.currentTimeMillis());
+        System.out.println("Connected ID: " + id);
+        if(auth == -1267811949) {
             WarehouseSimulation wsim = new WarehouseSimulation();
             WarehouseData wdata = wsim.generateData(id);
             ProductSimulation psim = new ProductSimulation();
@@ -21,7 +31,7 @@ public class DataWarehouseServiceImpl extends DataWarehouseServiceGrpc.DataWareh
                     .setProductCategory(randomData.getProductCategory())
                     .setProductPrice(randomData.getProductPrice())
                     .setProductStock(randomData.getProductStock())
-                    .setProductExpiryDate(randomData.getProductExpiryDate())
+                    .setProductExpiryDate(String.valueOf(randomData.getProductExpiryDate()))
                     .setProductAvailability(randomData.isProductAvailability())
                     .build();
 
@@ -36,10 +46,22 @@ public class DataWarehouseServiceImpl extends DataWarehouseServiceGrpc.DataWareh
                     .addProductData(product1)
                     .build();
 
-            responseObserver.onNext(response);
+            responseObserver.onNext(DataWarehouse.WarehouseResponse.newBuilder().build());
             responseObserver.onCompleted();
         } else {
             responseObserver.onError(new io.grpc.StatusRuntimeException(io.grpc.Status.UNAUTHENTICATED));
         }
+    }
+
+    @Override
+    public void ping(DataWarehouse.PingRequest request, StreamObserver<DataWarehouse.PingResponse> responseObserver) {
+        String clientId = request.getClientID();
+        if (activeClients.containsKey(clientId)) {
+            activeClients.put(clientId, System.currentTimeMillis());
+            responseObserver.onNext(DataWarehouse.PingResponse.newBuilder().setMessage("Healthy").build());
+        } else {
+            responseObserver.onNext(DataWarehouse.PingResponse.newBuilder().setMessage("Unknown client").build());
+        }
+        responseObserver.onCompleted();
     }
 }
